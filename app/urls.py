@@ -21,7 +21,7 @@ from core.views import (
 
 router = DefaultRouter()
 
-router.register(r'usuarios', UserViewSet, basename='usuarios')
+router.register(r'usuario', UserViewSet, basename='usuario')
 router.register(r'usuarios', UsuarioViewSet, basename='usuarios')
 router.register(r'enderecos', EnderecoViewSet, basename='endereco')
 router.register(r'categorias', CategoriaViewSet, basename='categoria')
@@ -30,7 +30,7 @@ router.register(r'pedidos', PedidoViewSet, basename='pedido')
 router.register(r'itens', ItenViewSet, basename='itens')
 router.register(r'carrinhos', CarrinhoViewSet, basename='carrinho')
 router.register(r'carrinho-itens', CarrinhoItemViewSet, basename='carrinho-itens')
-    
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     # OpenAPI 3
