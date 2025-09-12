@@ -108,7 +108,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# (opcional, se você tiver uma pasta "static" dentro do projeto)
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 
 # App Uploader settings
 MEDIA_ENDPOINT = '/media/'
@@ -121,7 +127,6 @@ if MODE == 'DEVELOPMENT':
 else:
     MEDIA_URL = '/media/'
     CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STORAGES = {
         'default': {
             'BACKEND': 'cloudinary_storage.storage.MediaCloudinaryStorage',
