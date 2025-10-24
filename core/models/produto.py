@@ -17,6 +17,14 @@ class Produto(models.Model):
         blank=True,
         default=None,
         )
+    image2 = models.ForeignKey(
+        Image,
+        related_name='+',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        default=None,
+        )
   
 
     def __str__(self):
