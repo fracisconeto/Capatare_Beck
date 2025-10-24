@@ -7,17 +7,6 @@ class Usuario(models.Model):
     telefone = models.CharField(max_length=20, blank=True, null=True)
     cpf = models.CharField(max_length=14, unique=True, blank=True, null=True)  # 000.000.000-00
     data_nascimento = models.DateField(blank=True, null=True)
-    genero = models.CharField(
-        max_length=20,
-        choices=[
-            ("M", "Masculino"),
-            ("F", "Feminino"),
-            ("O", "Outro"),
-            ("N", "Prefiro não informar"),
-        ],
-        blank=True,
-        null=True
-    )
     data_criacao = models.DateTimeField(auto_now_add=True)
     atualizado_em = models.DateTimeField(auto_now=True)
 
