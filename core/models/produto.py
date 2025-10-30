@@ -1,6 +1,5 @@
 from django.db import models
 from .categoria import Categoria
-from uploader.models import Image
 
 class Produto(models.Model):
     nome = models.CharField(max_length=255)
@@ -14,23 +13,9 @@ class Produto(models.Model):
     blank=True,
     default=None,
     )
-
-    image = models.ForeignKey(
-        Image,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        default=None,
-        related_name='+',
-    )
-    image2 = models.ForeignKey(
-        Image,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        default=None,
-        related_name='+',
-    )
+    
+    image1=models.CharField(max_length=255)
+    image2= models.CharField(max_length=255)
 
     def __str__(self):
         return self.nome
