@@ -19,8 +19,11 @@ from core.views import (
     PedidoViewSet,
     ItenViewSet,
     CarrinhoViewSet,
-    CarrinhoItemViewSet
+    CarrinhoItemViewSet,
+    EmailTokenObtainPairView,
 )
+
+from rest_framework_simplejwt.views import TokenRefreshView
 
 router = DefaultRouter()
 
@@ -50,8 +53,9 @@ urlpatterns = [
     ),
     # API
     path('api/', include(router.urls)),
-
     path('api/media/', include(uploader_router.urls)),  # nova linha
+    path('api/token/', EmailTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
 
 urlpatterns += static(settings.MEDIA_ENDPOINT, document_root=settings.MEDIA_ROOT)
