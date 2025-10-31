@@ -6,11 +6,12 @@ from rest_framework.viewsets import ModelViewSet
 
 from core.models import User
 from core.serializers import UserSerializer
-
+from rest_framework.permissions import AllowAny
 
 class UserViewSet(ModelViewSet):
     queryset = User.objects.all().order_by('id')
     serializer_class = UserSerializer
+    permission_classes = [AllowAny]
 
     @action(detail=False, methods=['get'], permission_classes=[IsAuthenticated])
     def me(self, request):

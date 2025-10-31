@@ -22,6 +22,8 @@ class UserManager(BaseUserManager):
             raise ValueError('Users must have an email address.')
 
         user = self.model(email=self.normalize_email(email), **extra_fields)
+        #criptografa a senha
+
         user.set_password(password)
         user.save(using=self._db)
 
@@ -40,7 +42,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     """User model in the system."""
 
-    passage_id = models.CharField(max_length=255, unique=True, verbose_name=_('passage_id'), help_text=_('Passage ID'))
+    #passage_id = models.CharField(max_length=255, unique=True, verbose_name=_('passage_id'), help_text=_('Passage ID'))
     email = models.EmailField(max_length=255, unique=True, verbose_name=_('email'), help_text=_('Email'))
     name = models.CharField(max_length=255, blank=True, null=True, verbose_name=_('name'), help_text=_('Username'))
     is_active = models.BooleanField(
