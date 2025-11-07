@@ -13,9 +13,9 @@ class Produto(models.Model):
     blank=True,
     default=None,
     )
-
+    
     image1=models.CharField(max_length=255)
-    image2=models.CharField(max_length=255)
+    image2= models.CharField(max_length=255)
 
     def __str__(self):
         return self.nome
