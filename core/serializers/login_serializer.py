@@ -1,6 +1,8 @@
 from rest_framework import serializers
-from django.contrib.auth import authenticate
-from core.models import User  # ajuste para o seu AUTH_USER_MODEL
+from django.contrib.auth import authenticate, get_user_model
+
+User = get_user_model()
+
 
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
@@ -10,10 +12,13 @@ class LoginSerializer(serializers.Serializer):
         email = attrs.get("email")
         password = attrs.get("password")
 
-        # autentica usando email como username
+        if not email or not password:
+            raise serializers.ValidationError("Email e senha são obrigatórios.")
+
+        # Seu USERNAME_FIELD é 'email', então usamos username=email
         user = authenticate(username=email, password=password)
 
-        if not user:
+        if user is None:
             raise serializers.ValidationError("Credenciais inválidas.")
 
         if not user.is_active:

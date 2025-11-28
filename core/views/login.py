@@ -12,12 +12,10 @@ class LoginView(APIView):
         usuario = serializer.validated_data["usuario"]
 
         return Response(
-            {
-                "id": usuario.id,
-                "nome": usuario.nome,
-                "email": usuario.email,
-                "telefone": usuario.telefone,
-                "cpf": usuario.cpf,
-            },
-            status=status.HTTP_200_OK,
-        )
+    {
+        "id": usuario.id,
+        "name": usuario.name,
+        "email": usuario.email,
+    },
+    status=status.HTTP_200_OK,
+)
