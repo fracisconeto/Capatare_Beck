@@ -19,7 +19,8 @@ from core.views import (
     PedidoViewSet,
     ItenViewSet,
     CarrinhoViewSet,
-    CarrinhoItemViewSet
+    CarrinhoItemViewSet,
+    LoginView,   # <-- ADICIONADO AQUI
 )
 
 router = DefaultRouter()
@@ -36,22 +37,20 @@ router.register(r'carrinho-itens', CarrinhoItemViewSet, basename='carrinho-itens
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
     # OpenAPI 3
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
-    path(
-        'api/swagger/',
-        SpectacularSwaggerView.as_view(url_name='schema'),
-        name='swagger-ui',
-    ),
-    path(
-        'api/redoc/',
-        SpectacularRedocView.as_view(url_name='schema'),
-        name='redoc',
-    ),
-    # API
+    path('api/swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+
+    # API normal
     path('api/', include(router.urls)),
 
-    path('api/media/', include(uploader_router.urls)),  # nova linha
+    # 🔥 ROTA DE LOGIN SEM TOKEN
+    path('api/login/', LoginView.as_view(), name='login'),
+
+    # Uploads
+    path('api/media/', include(uploader_router.urls)),
 ]
 
 urlpatterns += static(settings.MEDIA_ENDPOINT, document_root=settings.MEDIA_ROOT)

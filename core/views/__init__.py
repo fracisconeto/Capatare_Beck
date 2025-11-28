@@ -6,3 +6,4 @@ from .produto import ProdutoViewSet
 from .pedido import PedidoViewSet
 from .itens_pedido import ItenViewSet
 from .carrinho import CarrinhoViewSet, CarrinhoItemViewSet
+from .login import LoginView
