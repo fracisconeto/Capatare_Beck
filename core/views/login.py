@@ -1,9 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-
 from core.serializers.login_serializer import LoginSerializer
-
 
 class LoginView(APIView):
     def post(self, request):

@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.contrib.auth.hashers import check_password
 from core.models import Usuario
 
 class LoginSerializer(serializers.Serializer):
@@ -14,8 +15,8 @@ class LoginSerializer(serializers.Serializer):
         except Usuario.DoesNotExist:
             raise serializers.ValidationError("Usuário não encontrado")
 
-        # Comparando a senha diretamente (sem hash)
-        if usuario.senha != senha:
+        # Verifica senha usando hash
+        if not check_password(senha, usuario.senha):
             raise serializers.ValidationError("Senha incorreta")
 
         attrs["usuario"] = usuario
