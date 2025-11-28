@@ -1,23 +1,23 @@
 from rest_framework import serializers
-from django.contrib.auth.hashers import check_password
-from core.models import Usuario
+from django.contrib.auth import authenticate
+from core.models import User  # ajuste para o seu AUTH_USER_MODEL
 
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
-    senha = serializers.CharField()
+    password = serializers.CharField(write_only=True)
 
     def validate(self, attrs):
         email = attrs.get("email")
-        senha = attrs.get("senha")
+        password = attrs.get("password")
 
-        try:
-            usuario = Usuario.objects.get(email=email)
-        except Usuario.DoesNotExist:
-            raise serializers.ValidationError("Usuário não encontrado")
+        # autentica usando email como username
+        user = authenticate(username=email, password=password)
 
-        # Verifica senha usando hash
-        if not check_password(senha, usuario.senha):
-            raise serializers.ValidationError("Senha incorreta")
+        if not user:
+            raise serializers.ValidationError("Credenciais inválidas.")
 
-        attrs["usuario"] = usuario
+        if not user.is_active:
+            raise serializers.ValidationError("Usuário inativo.")
+
+        attrs["usuario"] = user
         return attrs
